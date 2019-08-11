@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="2.0.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+    <PackageReference Include="DeviceDetector.NET" Version="4.0.0" />
+    <PackageReference Include="Firewall" Version="2.2.1" />
+    <PackageReference Include="Hangfire" Version="1.7.6" />
+    <PackageReference Include="Hangfire.Console" Version="1.4.2" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.6.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.12" />
+    <PackageReference Include="HtmlSanitizer" Version="4.0.217" />
+    <PackageReference Include="IP-2-Country.WebNet77" Version="1.0.5" />
+    <PackageReference Include="jwt" Version="5.2.2" />
+    <PackageReference Include="LanguageExt.Core" Version="3.3.7" />
+    <PackageReference Include="LanguageExt.Parsec" Version="3.3.7" />
+    <PackageReference Include="LanguageExt.Rx" Version="3.3.7" />
+    <PackageReference Include="linq2db.EntityFrameworkCore" Version="1.7.0" />
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Buffering" Version="0.2.2" />
+    <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.0.180" />
+    <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.0.180" />
+    <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.9.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.0.4" />
+    <PackageReference Include="PCRE.NET" Version="0.10.1" />
+    <PackageReference Include="SharpZipLib" Version="1.2.0" />
+    <PackageReference Include="StackExchange.Utils.Http" Version="0.3.2" />
+    <PackageReference Include="System.Reactive" Version="4.1.6" />
+    <PackageReference Include="XWidget.Cryptography" Version="1.10.5" />
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="2.0.7" />
+    <PackageReference Include="Z.ExtensionMethods" Version="2.1.1" />
+  </ItemGroup>
+
+</Project>
