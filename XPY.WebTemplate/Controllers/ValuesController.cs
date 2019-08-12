@@ -27,7 +27,7 @@ namespace XPY.WebTemplate.Controllers {
 
         // POST api/values
         [HttpPost]
-        public string Post([FromBody] string value, [FromServices] JwtFactory jwt) {
+        public string Post([FromBody] string value, [FromServices] JwtHelper jwt) {
             return jwt.BuildToken("aaa");
         }
 

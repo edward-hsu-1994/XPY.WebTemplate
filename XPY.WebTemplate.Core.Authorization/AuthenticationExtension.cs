@@ -23,7 +23,8 @@ namespace Microsoft.Extensions.DependencyInjection {
                   .Audience(audience)
                   .ExpirationTime(DateTime.Now.AddHours(10))
             );
-            services.AddTransient<JwtFactory>();
+
+            services.AddTransient<JwtHelper>();
 
             // 使用認證
             services.AddAuthentication(options => {

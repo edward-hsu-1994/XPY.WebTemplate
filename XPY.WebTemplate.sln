@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPY.WebTemplate", "XPY.WebT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPY.WebTemplate.Collection", "XPY.WebTemplate.Collection\XPY.WebTemplate.Collection.csproj", "{43788AB1-067C-4622-85BE-067AFA6C5E51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPY.WebTemplate.Core.Authorization", "XPY.WebTemplate.Core.Authorization\XPY.WebTemplate.Core.Authorization.csproj", "{E0FFC7BE-B796-4641-AC47-76F59C14534C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPY.WebTemplate.Core.Authorization", "XPY.WebTemplate.Core.Authorization\XPY.WebTemplate.Core.Authorization.csproj", "{E0FFC7BE-B796-4641-AC47-76F59C14534C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPY.WebTemplate.Core.IP2Country", "XPY.WebTemplate.Core.IP2Country\XPY.WebTemplate.Core.IP2Country.csproj", "{4DBF18B9-4DC0-4D0C-868D-1042621D0D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPY.WebTemplate.Core.IP2Country", "XPY.WebTemplate.Core.IP2Country\XPY.WebTemplate.Core.IP2Country.csproj", "{4DBF18B9-4DC0-4D0C-868D-1042621D0D30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPY.WebTemplate.Core.DeviceDetector", "XPY.WebTemplate.Core.DeviceDetector\XPY.WebTemplate.Core.DeviceDetector.csproj", "{CE06509F-831D-484F-B6E3-36D436868193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPY.WebTemplate.Core.NSwag", "XPY.WebTemplate.Core.NSwag\XPY.WebTemplate.Core.NSwag.csproj", "{E13B20F3-FF8F-4E51-8000-4BE1E0D250B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPY.WebTemplate.Core.SPA", "XPY.WebTemplate.Core.SPA\XPY.WebTemplate.Core.SPA.csproj", "{747D358D-5999-4054-A387-A5B5D92654BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{4DBF18B9-4DC0-4D0C-868D-1042621D0D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DBF18B9-4DC0-4D0C-868D-1042621D0D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DBF18B9-4DC0-4D0C-868D-1042621D0D30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE06509F-831D-484F-B6E3-36D436868193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE06509F-831D-484F-B6E3-36D436868193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE06509F-831D-484F-B6E3-36D436868193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE06509F-831D-484F-B6E3-36D436868193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E13B20F3-FF8F-4E51-8000-4BE1E0D250B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E13B20F3-FF8F-4E51-8000-4BE1E0D250B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E13B20F3-FF8F-4E51-8000-4BE1E0D250B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E13B20F3-FF8F-4E51-8000-4BE1E0D250B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{747D358D-5999-4054-A387-A5B5D92654BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{747D358D-5999-4054-A387-A5B5D92654BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{747D358D-5999-4054-A387-A5B5D92654BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{747D358D-5999-4054-A387-A5B5D92654BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
