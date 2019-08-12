@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace XPY.WebTemplate.Core.Authorization {
-    public class JwtFactory {
+    public class JwtHelper {
         public JwtBuilder Builder { get; private set; }
 
-        public JwtFactory(JwtBuilder builder) {
+        public JwtHelper(JwtBuilder builder) {
             Builder = builder;
         }
 
