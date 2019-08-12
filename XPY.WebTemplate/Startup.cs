@@ -33,6 +33,7 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using NSwag;
 
 namespace XPY.WebTemplate {
     public class Startup {
@@ -44,8 +45,10 @@ namespace XPY.WebTemplate {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            // DbContext
             services.AddDbContextPool<DbContext>(options => {
-                options.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
+                options.ConfigureWarnings(warnings =>
+                    warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
             });
 
             // 日誌紀錄器
@@ -56,71 +59,48 @@ namespace XPY.WebTemplate {
 
             // JWT支援
             services.AddJwtAuthentication(
-                issuer: "<YOUR ISSUER>",
-                audience: "<YOUR AUDIENCE>",
-                secureKey: "<YOUR SECURE KEY>");
+                issuer: Configuration.GetValue<string>("JWT:Issuer"),
+                audience: Configuration.GetValue<string>("JWT:Audience"),
+                secureKey: Configuration.GetValue<string>("JWT:SecureKey"));
 
             // Swagger產生器
-            services.AddSwaggerDocument(config => {
-                config.Title = "<YOUR TITLE>";
-                config.Description = "<YOUR DESCRIPTION>";
-                config.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
+            if (Configuration.GetValue<bool>("Swagger:Enable")) {
+                services.AddNSwag(
+                    title: Configuration.GetValue<string>("Swagger:Title"),
+                    description: Configuration.GetValue<string>("Swagger:Description"));
+            }
 
-                // ref: https://github.com/RSuter/NSwag/issues/869
-                config.OperationProcessors.Add(new OperationSecurityScopeProcessor("apiKey"));
-                /*config.OperationProcessors.Add(new AuthorizeOperationProcessor());
-                config.OperationProcessors.Add(new OptionParamProcessor());
-                config.OperationProcessors.Add(new StringEnumParamProcessor());
-                config.OperationProcessors.Add(new FixFormFileParamProcessor());
-                config.OperationProcessors.Add(new DefaultEnumParamProcessor());
-                config.OperationProcessors.Add(new ConsumesAttributeProcessor());*/
-                config.DocumentProcessors.Add(new SecurityDefinitionAppender(
-                    "apiKey",
-                    new string[0],
-                    new NSwag.OpenApiSecurityScheme() {
-                        Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
-                        Name = "Authorization",
-                        In = NSwag.OpenApiSecurityApiKeyLocation.Header,
-                        Description = "JWT(Bearer) 存取權杖"
-                    }));
-            });
 
-            // MiniProfiler支援
-            services.AddMiniProfiler(o => {
-                o.RouteBasePath = "/profiler";
-            })
-            .AddEntityFramework();
+            if (Configuration.GetValue<bool>("MiniProfiler:Enable")) {
+                // MiniProfiler支援
+                services.AddMiniProfiler(o => {
+                    o.RouteBasePath = Configuration.GetValue<string>("MiniProfiler:RouteBasePath");
+                }).AddEntityFramework();
+            }
 
             // 客戶端裝置追蹤
-            services.AddScoped<DeviceDetector>(sp => {
-                var httpContext = sp.GetService<IHttpContextAccessor>().HttpContext;
-
-                DeviceDetector detector = null;
-                if (httpContext.Request.Headers.TryGetValue("User-Agent", out StringValues userAgent)) {
-                    detector = new DeviceDetector(userAgent);
-                    detector.SetCache(new DictionaryCache());
-                    detector.Parse();
-                }
-
-                return detector;
-            });
+            if (Configuration.GetValue<bool>("DeviceDetector")) {
+                services.AddDeviceDetector();
+            }
 
             // 加入IP轉國家支援
-            services.AddIP2Country();
+            if (Configuration.GetValue<bool>("IP2Country")) {
+                services.AddIP2Country();
+            }
 
             // Hangfire排程支援
-            services.AddHangfire(config => {
-                // 設定使用MemoryStorage
-                config.UseMemoryStorage();
+            if (Configuration.GetValue<bool>("Hangfire:Enable")) {
+                services.AddHangfire(config => {
+                    // 設定使用MemoryStorage
+                    config.UseMemoryStorage();
 
-                // 支援Console
-                config.UseConsole();
-            });
+                    // 支援Console
+                    config.UseConsole();
+                });
+            }
 
             // 設定SPA根目錄
-            services.AddSpaStaticFiles(options => {
-                options.RootPath = "./wwwroot";
-            });
+            services.AddSpa();
 
             // 中文編碼問題修正
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
@@ -137,17 +117,28 @@ namespace XPY.WebTemplate {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory) {
+
+            if (Configuration.GetValue<bool>("Logging:LogFile")) {
+                // 加入檔案型Log
+                loggerFactory.AddFile("logs/{Date}.log");
+            }
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
+            }
+
+            if (Configuration.GetValue<bool>("MiniProfiler:Enable")) {
                 app.UseMiniProfiler();
             }
 
+            // 轉發標頭
             app.UseForwardedHeaders(new ForwardedHeadersOptions {
                 ForwardedHeaders = ForwardedHeaders.All
             });
-
 
             #region Firewall
             /*
@@ -180,47 +171,36 @@ namespace XPY.WebTemplate {
             #endregion
 
             #region Hangfire
-            // 加入Hangfire伺服器
-            app.UseHangfireServer();
+            if (Configuration.GetValue<bool>("Hangfire:Enable")) {
+                // 加入Hangfire伺服器
+                app.UseHangfireServer();
 
-            // 加入Hangfire控制面板
-            app.UseHangfireDashboard(
-                pathMatch: "/hangfire",
-                options: new DashboardOptions() { // 使用自訂的認證過濾器
-                    Authorization = new[] { new HangfireAuthorizeFilter() }
-                }
-            );
+                // 加入Hangfire控制面板
+                app.UseHangfireDashboard(
+                    pathMatch: Configuration.GetValue<string>("Hangfire:PathMatch"),
+                    options: new DashboardOptions() { // 使用自訂的認證過濾器
+                        Authorization = new[] { new HangfireAuthorizeFilter() }
+                    }
+                );
+            }
             #endregion
 
-            #region Swagger UI            
-            app.UseOpenApi();
-            app.UseSwaggerUi3();
-            #endregion
+            // Swagger UI            
+            if (Configuration.GetValue<bool>("Swagger:Enable")) {
+                app.UseOpenApiAndSwaggerUi3();
+            }
 
             // 使用認證
             app.UseAuthentication();
 
+            // 使用MVC
             app.UseMvc();
 
             // 使用靜態檔案
             app.UseStaticFiles();
 
             // 使用SPA
-            app.UseSpaStaticFiles();
-
-            // SPA例外處理
-            app.Use(async (context, next) => {
-                try {
-                    await next();
-                } catch (Exception e) {
-                    if (e is InvalidOperationException && e.Message.Contains("/index.html")) {
-                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    }
-                }
-            });
-
-            // SPA設定
-            app.UseSpa(c => { });
+            app.UseSpa();
         }
     }
 }
