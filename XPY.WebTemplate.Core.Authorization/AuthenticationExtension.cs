@@ -10,7 +10,7 @@ using XPY.WebTemplate.Core.Authorization;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class AuthenticationExtension {
-        public static IServiceCollection AddJwtAuthentication(
+        public static void AddJwtAuthentication(
             this IServiceCollection services,
             string issuer,
             string audience,
@@ -47,8 +47,6 @@ namespace Microsoft.Extensions.DependencyInjection {
 #endif
                 };
             });
-
-            return services;
         }
     }
 }

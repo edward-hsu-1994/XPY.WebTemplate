@@ -34,6 +34,7 @@ using System.Text.Unicode;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using NSwag;
+using System.Text;
 
 namespace XPY.WebTemplate {
     public class Startup {
@@ -105,6 +106,10 @@ namespace XPY.WebTemplate {
             // 中文編碼問題修正
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
+            // 加入服務
+            services.AddServices();
+
+            // MVC
             services.AddMvc()
                 .AddJsonOptions(options => {
                     // JSON序列化忽略循環問題

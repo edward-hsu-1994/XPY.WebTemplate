@@ -15,8 +15,8 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// </summary>
         /// <param name="services">DI服務容器</param>
         /// <returns>DI服務容器</returns>
-        public static IServiceCollection AddIP2Country(this IServiceCollection services) {
-            return services.AddSingleton<IP2CountryResolver>(sp => {
+        public static void AddIP2Country(this IServiceCollection services) {
+            services.AddSingleton<IP2CountryResolver>(sp => {
                 return new IP2CountryResolver(new IIP2CountryDataSource[] {
                     new WebNet77IPv4CSVFileSource("Resource/IpToCountry.csv"),
                     new WebNet77IPv6CSVFileSource("Resource/IpToCountry.6R.csv")

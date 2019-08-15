@@ -15,13 +15,11 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// </summary>
         /// <param name="services">DI服務容器</param>
         /// <returns>DI服務容器</returns>
-        public static IServiceCollection AddSpa(this IServiceCollection services) {
+        public static void AddSpa(this IServiceCollection services) {
             // 設定SPA根目錄
             services.AddSpaStaticFiles(options => {
                 options.RootPath = "./wwwroot";
             });
-
-            return services;
         }
 
         /// <summary>

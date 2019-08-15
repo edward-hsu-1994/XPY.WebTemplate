@@ -14,11 +14,11 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// </summary>
         /// <param name="services">DI服務容器</param>
         /// <returns>DI服務容器</returns>
-        public static IServiceCollection AddNSwag(
+        public static void AddNSwag(
             this IServiceCollection services,
             string title,
             string description = null) {
-            return services.AddSwaggerDocument(config => {
+            services.AddSwaggerDocument(config => {
                 config.Title = "<YOUR TITLE>";
                 config.Description = "<YOUR DESCRIPTION>";
                 config.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();

@@ -18,6 +18,7 @@
     <ProjectReference Include="..\XPY.WebTemplate.Core.IP2Country\XPY.WebTemplate.Core.IP2Country.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Core.NSwag\XPY.WebTemplate.Core.NSwag.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Core.SPA\XPY.WebTemplate.Core.SPA.csproj" />
+    <ProjectReference Include="..\XPY.WebTemplate.Services\XPY.WebTemplate.Services.csproj" />
   </ItemGroup>
 
 </Project>
