@@ -14,8 +14,8 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// </summary>
         /// <param name="services">DI服務容器</param>
         /// <returns>DI服務容器</returns>
-        public static IServiceCollection AddDeviceDetector(this IServiceCollection services) {
-            return services.AddScoped<DeviceDetector>(sp => {
+        public static void AddDeviceDetector(this IServiceCollection services) {
+            services.AddScoped<DeviceDetector>(sp => {
                 var httpContext = sp.GetService<IHttpContextAccessor>().HttpContext;
 
                 DeviceDetector detector = null;
