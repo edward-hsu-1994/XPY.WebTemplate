@@ -181,7 +181,7 @@ namespace XPY.WebTemplate {
             app.UseSecurityHeaders(policyCollection);
             #endregion
 
-            #region Hangfire
+            // Hangfire UI
             if (Configuration.GetValue<bool>("Hangfire:Enable")) {
                 // 加入Hangfire伺服器
                 app.UseHangfireServer();
@@ -194,7 +194,6 @@ namespace XPY.WebTemplate {
                     }
                 );
             }
-            #endregion
 
             // Swagger UI            
             if (Configuration.GetValue<bool>("Swagger:Enable")) {
