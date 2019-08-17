@@ -15,8 +15,26 @@ namespace XPY.WebTemplate {
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IConfigurationRoot ReadFromAppSettings() {
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", false)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
+            var config = ReadFromAppSettings();
+
+            var builder = WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+
+            if (config.GetValue<bool>("Sentry:Enable")) {
+                builder = builder.UseSentry(config.GetValue<string>("Sentry:DSN"));
+            }
+
+            return builder;
+        }
     }
 }

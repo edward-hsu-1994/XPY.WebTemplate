@@ -35,6 +35,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using NSwag;
 using System.Text;
+using FluentValidation.AspNetCore;
+using XPY.WebTemplate.Models.Validators;
 
 namespace XPY.WebTemplate {
     public class Startup {
@@ -71,7 +73,7 @@ namespace XPY.WebTemplate {
                     description: Configuration.GetValue<string>("Swagger:Description"));
             }
 
-
+            // MiniProfile
             if (Configuration.GetValue<bool>("MiniProfiler:Enable")) {
                 // MiniProfiler支援
                 services.AddMiniProfiler(o => {
@@ -109,6 +111,9 @@ namespace XPY.WebTemplate {
             // 加入服務
             services.AddServices();
 
+            // 加入模型驗證器
+            services.AddFluentValidation();
+
             // MVC
             services.AddMvc()
                 .AddJsonOptions(options => {
@@ -118,6 +123,7 @@ namespace XPY.WebTemplate {
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation()
                 .AddControllersAsServices();
         }
 
@@ -175,7 +181,7 @@ namespace XPY.WebTemplate {
             app.UseSecurityHeaders(policyCollection);
             #endregion
 
-            #region Hangfire
+            // Hangfire UI
             if (Configuration.GetValue<bool>("Hangfire:Enable")) {
                 // 加入Hangfire伺服器
                 app.UseHangfireServer();
@@ -188,7 +194,6 @@ namespace XPY.WebTemplate {
                     }
                 );
             }
-            #endregion
 
             // Swagger UI            
             if (Configuration.GetValue<bool>("Swagger:Enable")) {

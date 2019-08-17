@@ -6,6 +6,7 @@ using DeviceDetectorNET;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using XPY.WebTemplate.Core.Authorization;
+using XPY.WebTemplate.Models;
 using XPY.WebTemplate.Services;
 
 namespace XPY.WebTemplate.Controllers {
@@ -20,7 +21,7 @@ namespace XPY.WebTemplate.Controllers {
         }
 
         [HttpPost]
-        public string Post([FromServices] SampleService jwt) {
+        public string Post([FromBody]SampleModel loginData, [FromServices] SampleService jwt) {
             return jwt.JwtHelper.BuildToken("userId");
         }
 
