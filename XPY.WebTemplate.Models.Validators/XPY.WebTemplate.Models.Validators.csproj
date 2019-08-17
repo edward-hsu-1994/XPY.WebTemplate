@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="README.md">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XPY.WebTemplate.Collection\XPY.WebTemplate.Collection.csproj" />
+    <ProjectReference Include="..\XPY.WebTemplate.Models.EF\XPY.WebTemplate.Models.EF.csproj" />
+    <ProjectReference Include="..\XPY.WebTemplate.Models\XPY.WebTemplate.Models.csproj" />
+  </ItemGroup>
+
+</Project>
