@@ -40,6 +40,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.0.4" />
     <PackageReference Include="PCRE.NET" Version="0.10.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
     <PackageReference Include="Sentry.AspNetCore" Version="1.2.0" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
     <PackageReference Include="SharpZipLib" Version="1.2.0" />

@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPY.WebTemplate.Models.EF",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPY.WebTemplate.Models", "XPY.WebTemplate.Models\XPY.WebTemplate.Models.csproj", "{78E3F7D5-85F1-4A55-B473-EBB8C83C9F6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPY.WebTemplate.Models.Validators", "XPY.WebTemplate.Models.Validators\XPY.WebTemplate.Models.Validators.csproj", "{A2BD1E01-883C-41E8-A546-BAB91B14DC98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPY.WebTemplate.Models.Validators", "XPY.WebTemplate.Models.Validators\XPY.WebTemplate.Models.Validators.csproj", "{A2BD1E01-883C-41E8-A546-BAB91B14DC98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPY.WebTemplate.Core.RabbitMQ", "XPY.WebTemplate.Core.RabbitMQ\XPY.WebTemplate.Core.RabbitMQ.csproj", "{0EEB3C4C-AC2E-4245-BFE5-069A72F0CD4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{A2BD1E01-883C-41E8-A546-BAB91B14DC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2BD1E01-883C-41E8-A546-BAB91B14DC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2BD1E01-883C-41E8-A546-BAB91B14DC98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EEB3C4C-AC2E-4245-BFE5-069A72F0CD4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EEB3C4C-AC2E-4245-BFE5-069A72F0CD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EEB3C4C-AC2E-4245-BFE5-069A72F0CD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EEB3C4C-AC2E-4245-BFE5-069A72F0CD4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

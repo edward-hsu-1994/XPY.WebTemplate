@@ -17,6 +17,7 @@
     <ProjectReference Include="..\XPY.WebTemplate.Core.DeviceDetector\XPY.WebTemplate.Core.DeviceDetector.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Core.IP2Country\XPY.WebTemplate.Core.IP2Country.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Core.NSwag\XPY.WebTemplate.Core.NSwag.csproj" />
+    <ProjectReference Include="..\XPY.WebTemplate.Core.RabbitMQ\XPY.WebTemplate.Core.RabbitMQ.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Core.SPA\XPY.WebTemplate.Core.SPA.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Models.EF\XPY.WebTemplate.Models.EF.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Models.Validators\XPY.WebTemplate.Models.Validators.csproj" />

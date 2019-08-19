@@ -37,6 +37,8 @@ using NSwag;
 using System.Text;
 using FluentValidation.AspNetCore;
 using XPY.WebTemplate.Models.Validators;
+using RabbitMQ.Client;
+using XPY.WebTemplate.Core.RabbitMQ;
 
 namespace XPY.WebTemplate {
     public class Startup {
@@ -113,6 +115,24 @@ namespace XPY.WebTemplate {
 
             // 加入模型驗證器
             services.AddFluentValidation();
+
+            // 加入RMQ
+            if (Configuration.GetValue<bool>("RabbitMQ:Enable")) {
+                services.AddRabbitMQ(new ConnectionFactory() {
+                    HostName = Configuration.GetValue<string>("RabbitMQ:Hostname"),
+                    VirtualHost = Configuration.GetValue<string>("RabbitMQ:VirtualHost"),
+                    Port = Configuration.GetValue<int>("RabbitMQ:Port"),
+                    UserName = Configuration.GetValue<string>("RabbitMQ:Username"),
+                    Password = Configuration.GetValue<string>("RabbitMQ:Password")
+                });
+
+                services.Configure<QueueConsumerOptions<SampleQueue>>(config => {
+                    config.Name = "Test";
+                    config.Durable = true;
+                    config.AutoAck = true;
+                });
+                services.AddRabbitQueue<SampleQueue>();
+            }
 
             // MVC
             services.AddMvc()
