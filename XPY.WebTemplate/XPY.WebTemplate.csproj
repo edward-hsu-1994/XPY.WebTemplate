@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="nlog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
@@ -23,6 +27,16 @@
     <ProjectReference Include="..\XPY.WebTemplate.Models.Validators\XPY.WebTemplate.Models.Validators.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Models\XPY.WebTemplate.Models.csproj" />
     <ProjectReference Include="..\XPY.WebTemplate.Services\XPY.WebTemplate.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
