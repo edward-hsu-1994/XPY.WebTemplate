@@ -39,6 +39,7 @@ using FluentValidation.AspNetCore;
 using XPY.WebTemplate.Models.Validators;
 using RabbitMQ.Client;
 using XPY.WebTemplate.Core.RabbitMQ;
+using Ben.Diagnostics;
 
 namespace XPY.WebTemplate {
     public class Startup {
@@ -152,13 +153,9 @@ namespace XPY.WebTemplate {
             IApplicationBuilder app,
             IHostingEnvironment env,
             ILoggerFactory loggerFactory) {
-
-            if (Configuration.GetValue<bool>("Logging:LogFile")) {
-                // 加入檔案型Log
-                loggerFactory.AddFile("logs/{Date}.log");
-            }
-
             if (env.IsDevelopment()) {
+                // 追蹤阻塞調用
+                app.UseBlockingDetection();
                 app.UseDeveloperExceptionPage();
             }
 
