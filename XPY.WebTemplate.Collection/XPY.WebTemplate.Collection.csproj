@@ -23,6 +23,7 @@
     <PackageReference Include="LanguageExt.Parsec" Version="3.3.7" />
     <PackageReference Include="LanguageExt.Rx" Version="3.3.7" />
     <PackageReference Include="linq2db.EntityFrameworkCore" Version="1.7.0" />
+    <PackageReference Include="LINQKit.Core" Version="1.1.16" />
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
