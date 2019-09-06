@@ -19,8 +19,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             string title,
             string description = null) {
             services.AddSwaggerDocument(config => {
-                config.Title = "<YOUR TITLE>";
-                config.Description = "<YOUR DESCRIPTION>";
+                config.Title = title;
+                config.Description = description;
                 config.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
 
                 // ref: https://github.com/RSuter/NSwag/issues/869
