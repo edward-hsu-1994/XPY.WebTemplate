@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using DeviceDetectorNET;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using XPY.WebTemplate.Core.Authorization;
+using XPY.WebTemplate.Core.Mvc;
 using XPY.WebTemplate.Models;
 using XPY.WebTemplate.Services;
 
@@ -27,6 +29,11 @@ namespace XPY.WebTemplate.Controllers {
         [HttpPost]
         public string Post([FromBody]SampleModel loginData, [FromServices] SampleService jwt) {
             return jwt.JwtHelper.BuildToken("userId");
+        }
+
+        [HttpPost("jsonAndFile")]
+        public string Post2([FromFormJson]SampleModel loginData, IFormFile photo) {
+            return null;
         }
 
     }

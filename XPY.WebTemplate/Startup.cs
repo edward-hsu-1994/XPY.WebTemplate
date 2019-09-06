@@ -40,6 +40,7 @@ using XPY.WebTemplate.Models.Validators;
 using RabbitMQ.Client;
 using XPY.WebTemplate.Core.RabbitMQ;
 using Ben.Diagnostics;
+using XPY.WebTemplate.Core.Mvc;
 
 namespace XPY.WebTemplate {
     public class Startup {
@@ -136,7 +137,9 @@ namespace XPY.WebTemplate {
             }
 
             // MVC
-            services.AddMvc()
+            services.AddMvc(options => {
+                options.ModelBinderProviders.Insert(0, new FormJsonModelBinderProvider());
+            })
                 .AddJsonOptions(options => {
                     // JSON序列化忽略循環問題
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
