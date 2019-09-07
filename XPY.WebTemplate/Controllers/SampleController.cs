@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DeviceDetectorNET;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using XPY.WebTemplate.Core.Authorization;
@@ -20,10 +21,12 @@ namespace XPY.WebTemplate.Controllers {
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get(
             [FromServices]DeviceDetector detector,
-            [FromServices]ILogger<SampleController> logger) {
+            [FromServices]ILogger<SampleController> logger,
+            [FromQuery]string gggg) {
             logger.LogError("TEST");
             var os = detector.GetOs();
-            return new string[] { os.Match.Name };
+            var url = this.Request.GetDisplayUrl();
+            return new string[] { os.Match.Name, url };
         }
 
         [HttpPost]
