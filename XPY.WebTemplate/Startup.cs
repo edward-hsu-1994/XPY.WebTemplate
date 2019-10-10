@@ -16,7 +16,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Converters;
 using NSwag.Generation.Processors.Security;
 using XPY.WebTemplate.Core.Authorization;
 using DeviceDetectorNET;
@@ -41,6 +40,7 @@ using RabbitMQ.Client;
 using XPY.WebTemplate.Core.RabbitMQ;
 using Ben.Diagnostics;
 using XPY.WebTemplate.Core.Mvc;
+using System.Text.Json.Serialization;
 
 namespace XPY.WebTemplate {
     public class Startup {
@@ -77,12 +77,14 @@ namespace XPY.WebTemplate {
                     description: Configuration.GetValue<string>("Swagger:Description"));
             }
 
+            services.AddMemoryCache();
+
             // MiniProfile
             if (Configuration.GetValue<bool>("MiniProfiler:Enable")) {
                 // MiniProfiler支援
                 services.AddMiniProfiler(o => {
                     o.RouteBasePath = Configuration.GetValue<string>("MiniProfiler:RouteBasePath");
-                }).AddEntityFramework();
+                }).AddEntityFramework();                
             }
 
             // 客戶端裝置追蹤
@@ -136,19 +138,16 @@ namespace XPY.WebTemplate {
                 services.AddRabbitQueue<SampleQueue>();
             }
 
+            services.AddRouting();
+
             // MVC
-            services.AddMvc(options => {
-                options.ModelBinderProviders.Insert(0, new FormJsonModelBinderProvider());
-            })
-                .AddJsonOptions(options => {
-                    // JSON序列化忽略循環問題
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                    // 列舉
-                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+            services.AddControllers()
+                .AddJsonOptions(options=> {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddFluentValidation()
-                .AddControllersAsServices();
+                .AddControllersAsServices(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -183,6 +182,8 @@ namespace XPY.WebTemplate {
 
             // 回應緩衝
             app.UseResponseBuffering();
+
+            app.UseRouting();
 
             #region Security Headers
             var policyCollection = new HeaderPolicyCollection()
@@ -224,13 +225,18 @@ namespace XPY.WebTemplate {
             app.UseAuthentication();
 
             // 使用MVC
-            app.UseMvc();
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();                
+            });
+
 
             // 使用靜態檔案
             app.UseStaticFiles();
 
             // 使用SPA
             app.UseSpa();
+
+
         }
     }
 }
